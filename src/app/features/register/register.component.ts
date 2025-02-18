@@ -5,6 +5,7 @@ import {InputIcon} from "primeng/inputicon";
 import {InputText} from "primeng/inputtext";
 import {NgIf} from "@angular/common";
 import {AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators} from "@angular/forms";
+import {Dialog} from 'primeng/dialog';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,8 @@ import {AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidatorF
     InputIcon,
     InputText,
     NgIf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Dialog
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -22,12 +24,13 @@ import {AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidatorF
 export class RegisterComponent {
 
   submitted: boolean = false;
+  visibleErrorDialog: boolean = false;
 
   registerForm = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      confirmPassword: new FormControl('', [Validators.required]),
     },
     {validators: this.passwordMatchValidator()}
   );
@@ -44,12 +47,13 @@ export class RegisterComponent {
     };
   }
 
-  samePasswords(): boolean {
-    return this.registerForm.controls.password.value === this.registerForm.controls.confirmPassword.value;
-  }
-
   onSubmit(): void {
     this.submitted = true;
+    if (!this.registerForm.valid) {
+      this.visibleErrorDialog = true;
+      return;
+    }
+    window.alert('Registro enviado')
   }
 
 }
