@@ -1,0 +1,61 @@
+<div class="p-8 min-h-screen flex items-start justify-center bg-gradient-to-r from-blue-900 to-blue-400 w-full">
+  <div class="flex flex-col justify-start content-start text-center w-full md:w-2/3 lg:w-5/12">
+    <div class="mb-3 w-full">
+      <h1 class="text-6xl text-slate-50">OrcmApp</h1>
+    </div>
+    <div class="mb-6 text-slate-50 text-lg">
+      <p>App para gestão de <span class="text-yellow-500 font-semibold">orçamento</span></p>
+      <p>pessoal e familiar</p>
+    </div>
+    <div class="mb-8 w-full">
+      <h1 class="text-4xl text-slate-50">Criar Conta</h1>
+    </div>
+    <form [formGroup]="registerForm" class="w-full text-left">
+      <div class="flex justify-center w-full">
+        <div class="w-full mb-10 lg:w-3/4">
+          <label for="email" class="text-slate-50">E-mail</label>
+          <p-iconfield>
+            <p-inputicon class="pi pi-envelope"/>
+            <input formControlName="email" id="email" type="email" class="w-full" pInputText placeholder="digite um e-mail válido..."
+                   size="large"/>
+          </p-iconfield>
+          <p class="text-yellow-400" *ngIf="!registerForm.controls.email.errors?.['require'] && submitted">O e-mail é obrigatório</p>
+        </div>
+      </div>
+      <div class="flex justify-center w-full">
+        <div class="w-full mb-10 lg:w-3/4">
+          <label for="password" class="text-slate-50">Senha</label>
+          <p-iconfield>
+            <p-inputicon class="pi pi-lock"/>
+            <input formControlName="password" id="password" type="password" class="w-full" pInputText placeholder="digite uma senha válida..."
+                   size="large"/>
+          </p-iconfield>
+          <p class="text-yellow-400" *ngIf="!registerForm.controls.password.valid && submitted">Senha inválida ou não informada!</p>
+          <p class="text-yellow-400" *ngIf="!samePasswords() && submitted">As senhas digitadas não conferem</p>
+          <p class="text-slate-50 text-sm mt-2">A senha deve ter no mínimo 8 caracteres</p>
+        </div>
+      </div>
+      <div class="flex justify-center w-full">
+        <div class="w-full mb-10 lg:w-3/4">
+          <label for="confirmPassword" class="text-slate-50">Confirmar senha</label>
+          <p-iconfield>
+            <p-inputicon class="pi pi-lock"/>
+            <input formControlName="confirmPassword" id="confirmPassword" type="password" class="w-full" pInputText
+                   placeholder="repita a senha digitada acima..."
+                   size="large"/>
+          </p-iconfield>
+          <p class="text-yellow-400" *ngIf="!registerForm.controls.confirmPassword.valid && submitted">Senha inválida ou não informada!</p>
+          <p class="text-slate-50 text-sm mt-2">Digite a mesma senha do campo acima</p>
+        </div>
+      </div>
+      <div class="w-full md:w-3/5 lg:w-2/5 mx-auto flex justify-center">
+        <div class="grow">
+          <p-button label="Criar conta" [rounded]="true" size="large" [fluid]="true"
+                    styleClass="bg-white text-blue-900 border border-blue-900 hover:bg-gray-200 font-bold shadow-lg transition duration-300 ease-in-out"
+                    (onClick)="onSubmit()"></p-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
