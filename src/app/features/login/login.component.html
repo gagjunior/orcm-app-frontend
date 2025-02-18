@@ -1,0 +1,53 @@
+<div class="p-8 min-h-screen flex items-start justify-center bg-gradient-to-r from-blue-900 to-blue-400 w-full">
+  <div class="flex flex-col justify-start content-start text-center w-full md:w-2/3 lg:w-5/12">
+    <div class="mb-3 w-full">
+      <h1 class="text-6xl text-slate-50">OrcmApp</h1>
+    </div>
+    <div class="mb-6 text-slate-50 text-lg">
+      <p>App para gestão de <span class="text-yellow-500 font-semibold">orçamento</span></p>
+      <p>pessoal e familiar</p>
+    </div>
+    <div class="mb-8 w-full">
+      <h1 class="text-4xl text-slate-50">Login</h1>
+    </div>
+    <form [formGroup]="loginForm" class="w-full text-left">
+      <div class="flex justify-center w-full">
+        <div class="w-full mb-10 lg:w-3/4">
+          <label for="email" class="text-slate-50">E-mail</label>
+          <p-iconfield>
+            <p-inputicon class="pi pi-envelope"/>
+            <input formControlName="emailFormControl" id="email" type="email" class="w-full" pInputText placeholder="digite seu e-mail cadastrado..."
+                   size="large"/>
+          </p-iconfield>
+          <p class="text-yellow-400" *ngIf="!loginForm.controls.emailFormControl.valid && submitted">E-mail inválido ou não informado!</p>
+        </div>
+      </div>
+      <div class="flex justify-center w-full">
+        <div class="w-full mb-10 lg:w-3/4">
+          <label for="password" class="text-slate-50">Senha</label>
+          <p-iconfield>
+            <p-inputicon class="pi pi-lock"/>
+            <input formControlName="passwordFormControl" id="password" type="password" class="w-full" pInputText placeholder="digite sua senha..."
+                   size="large"/>
+          </p-iconfield>
+          <p class="text-yellow-400" *ngIf="!loginForm.controls.passwordFormControl.valid && submitted">Senha inválida ou não informada!</p>
+        </div>
+      </div>
+      <div class="w-full md:w-3/5 lg:w-2/5 mx-auto flex justify-center">
+        <div class="grow">
+          <p-button label="Acessar" [rounded]="true" size="large" [fluid]="true"
+                    styleClass="bg-white text-blue-900 border border-blue-900 hover:bg-gray-200 font-bold shadow-lg transition duration-300 ease-in-out"
+                    (onClick)="onSubmit()"></p-button>
+        </div>
+      </div>
+    </form>
+    <div class="mt-8 w-full">
+      <div class="flex justify-center w-full">
+        <div class="w-full mb-10 lg:w-3/4">
+          <p-button (onClick)="redirectToRegister()" label="Não tem uma conta? Clique aqui para se cadastrar!" [link]="true"
+                    styleClass="text-yellow-400"></p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
