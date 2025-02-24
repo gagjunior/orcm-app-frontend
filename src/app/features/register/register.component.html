@@ -13,7 +13,8 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="w-full text-left">
       <!--E-mail-->
       <div class="flex justify-center w-full">
-        <div class="w-full mb-10 lg:w-3/4">
+        <div class="w-full mb-8 lg:w-3/4">
+          <p class="text-slate-50 text-sm mb-2">Informe abaixo o e-mail que deseja usar para cadastro</p>
           <label for="email" class="text-slate-50">E-mail</label>
           <p-iconfield>
             <p-inputicon class="pi pi-envelope"/>
@@ -27,6 +28,15 @@
       <!--Senha-->
       <div class="flex justify-center w-full">
         <div class="w-full mb-10 lg:w-3/4">
+          <div class="mb-4">
+            <p-panel header="Regras para criação de Senha" [toggleable]="true" [collapsed]="true">
+              <p class="text-sm mb-2">- É <strong>obrigatório</strong> a senha ter no <strong>mínimo</strong> 8 caracteres</p>
+              <p class="text-sm">Não é obrigatório mas...</p>
+              <p class="text-sm">- É recomendado letras e números</p>
+              <p class="text-sm">- É recomendado letras maiúsculas e minusculas</p>
+              <p class="text-sm mb-6">- É recomendado incluir caracteres especiais</p>
+            </p-panel>
+          </div>
           <label for="password" class="text-slate-50">Senha</label>
           <p-iconfield>
             <p-inputicon class="pi pi-lock"/>
@@ -35,7 +45,6 @@
           </p-iconfield>
           <p class="text-yellow-400" *ngIf="registerForm.get('password')?.errors?.['required'] && submitted">Senha é obrigatória!</p>
           <p class="text-yellow-400" *ngIf="registerForm.get('password')?.errors?.['minlength'] && submitted">A senha deve ter no minio 8 caracteres!</p>
-          <p class="text-slate-50 text-sm mt-2">A senha deve ter no mínimo 8 caracteres</p>
         </div>
       </div>
       <div class="flex justify-center w-full">

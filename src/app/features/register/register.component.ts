@@ -6,6 +6,7 @@ import {InputText} from "primeng/inputtext";
 import {NgIf} from "@angular/common";
 import {AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators} from "@angular/forms";
 import {Dialog} from 'primeng/dialog';
+import {Panel} from 'primeng/panel';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,8 @@ import {Dialog} from 'primeng/dialog';
     InputText,
     NgIf,
     ReactiveFormsModule,
-    Dialog
+    Dialog,
+    Panel
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
