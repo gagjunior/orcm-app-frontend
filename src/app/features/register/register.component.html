@@ -11,6 +11,19 @@
       <h1 class="text-4xl text-slate-50">Criar Conta</h1>
     </div>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="w-full text-left">
+      <!--Nome Completo-->
+      <div class="flex justify-center w-full">
+        <div class="w-full mb-8 lg:w-3/4">
+          <p class="text-slate-50 text-sm mb-2">Informe abaixo seu nome completo</p>
+          <label for="fullName" class="text-slate-50">Nome completo</label>
+          <p-iconfield>
+            <p-inputicon class="pi pi-user"/>
+            <input formControlName="fullName" id="fullName" type="text" class="w-full" pInputText placeholder="digite seu nome completo..."
+                   size="large"/>
+          </p-iconfield>
+          <p class="text-yellow-400" *ngIf="registerForm.get('fullName')?.errors?.['required'] && submitted">Nome completo é obrigatório</p>
+        </div>
+      </div>
       <!--E-mail-->
       <div class="flex justify-center w-full">
         <div class="w-full mb-8 lg:w-3/4">
@@ -71,11 +84,12 @@
   </div>
 </div>
 
-<p-dialog header="Cadastro não enviado!" [modal]="true" [(visible)]="visibleErrorDialog">
+<p-dialog header="Cadastro Não Enviado!" [modal]="true" [(visible)]="visibleValidatorDialog">
   <div class="mb-4">
     <p>Verifique os erros abaixo: </p>
   </div>
   <div class="mb-4">
+    <p class="text-red-600" *ngIf="registerForm.get('fullName')?.errors?.['required'] && submitted">Nome completo é obrigatório</p>
     <p class="text-red-600" *ngIf="registerForm.get('email')?.errors?.['required'] && submitted">E-mail é obrigatório</p>
     <p class="text-red-600" *ngIf="registerForm.get('email')?.errors?.['email'] && submitted">E-mail digitado é inválido</p>
     <p class="text-red-600" *ngIf="registerForm.get('password')?.errors?.['required'] && submitted">Senha é obrigatória!</p>
@@ -84,4 +98,30 @@
     <p class="text-red-600" *ngIf="registerForm.errors?.['passwordMismatch'] && submitted">As senhas não coincidem!</p>
   </div>
 </p-dialog>
+
+<p-dialog header="Erro ao Criar Conta!" [modal]="true" [(visible)]="visibleErrorDialog" styleClass="m-4">
+  <div class="mb-4">
+    <p class="text-red-600">{{ apiError.message }}</p>
+  </div>
+</p-dialog>
+
+<p-dialog header="Conta Criada!" [modal]="true" [(visible)]="visibleSucessDialog" styleClass="m-4">
+  <div class="mb-4 flex flex-col">
+    <span class="p-text-secondary block mb-8">Sua conta para o e-mail: {{ newUser?.email?.toLowerCase() }} foi criada com sucesso!!</span>
+
+    <div class="flex justify-end gap-2">
+      <p-button label="Ir para tela de Login" (onClick)="redirectToLogin()"/>
+    </div>
+  </div>
+</p-dialog>
+
+<div *ngIf="loading" class="spinner-overlay">
+  <div class="flex flex-col justify-items-center items-center">
+    <p-progress-spinner ariaLabel="loading"></p-progress-spinner>
+    <p class="text-slate-50 text-lg">Criando sua conta...</p>
+  </div>
+</div>
+
+
+
 
