@@ -22,6 +22,8 @@
                    size="large"/>
           </p-iconfield>
           <p class="text-yellow-400" *ngIf="registerForm.get('fullName')?.errors?.['required'] && submitted">Nome completo é obrigatório</p>
+          <p class="text-yellow-400" *ngIf="registerForm.get('fullName')?.errors?.['whitespace'] && submitted">Nome completo está em branco ou só contem
+            espaços</p>
         </div>
       </div>
       <!--E-mail-->
@@ -90,6 +92,7 @@
   </div>
   <div class="mb-4">
     <p class="text-red-600" *ngIf="registerForm.get('fullName')?.errors?.['required'] && submitted">Nome completo é obrigatório</p>
+    <p class="text-red-600" *ngIf="registerForm.get('fullName')?.errors?.['whitespace'] && submitted">Nome completo está em branco ou só contem espaços</p>
     <p class="text-red-600" *ngIf="registerForm.get('email')?.errors?.['required'] && submitted">E-mail é obrigatório</p>
     <p class="text-red-600" *ngIf="registerForm.get('email')?.errors?.['email'] && submitted">E-mail digitado é inválido</p>
     <p class="text-red-600" *ngIf="registerForm.get('password')?.errors?.['required'] && submitted">Senha é obrigatória!</p>

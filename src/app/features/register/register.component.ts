@@ -4,7 +4,7 @@ import {IconField} from "primeng/iconfield";
 import {InputIcon} from "primeng/inputicon";
 import {InputText} from "primeng/inputtext";
 import {NgIf} from "@angular/common";
-import {AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {Dialog} from 'primeng/dialog';
 import {Panel} from 'primeng/panel';
 import {UserRegistrationService} from '../../core/services/user-registration.service';
@@ -50,12 +50,20 @@ export class RegisterComponent {
   registerForm = new FormGroup(
     {
       email: new FormControl('', [Validators.required, Validators.email]),
-      fullName: new FormControl('', [Validators.required]),
+      fullName: new FormControl('', [Validators.required, this.noWhitespaceValidator]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       confirmPassword: new FormControl('', [Validators.required]),
     },
-    {validators: this.passwordMatchValidator()}
+    {
+      validators: this.passwordMatchValidator
+    }
   );
+
+  noWhitespaceValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value || '';
+    return value.trim().length === 0 ? {whitespace: true} : null;
+  }
+
 
   passwordMatchValidator(): ValidatorFn {
     return (formGroup: AbstractControl) => {

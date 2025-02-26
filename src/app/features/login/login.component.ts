@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {IconField} from 'primeng/iconfield';
 import {InputIcon} from 'primeng/inputicon';
@@ -22,15 +22,14 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private readonly router: Router) {
-  }
+  private readonly router: Router = inject(Router);
 
   submitted: boolean = false;
 
   loginForm = new FormGroup(
     {
-      emailFormControl: new FormControl('', [Validators.required, Validators.email]),
-      passwordFormControl: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     }
   )
 
