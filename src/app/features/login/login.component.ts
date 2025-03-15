@@ -6,6 +6,7 @@ import {InputText} from 'primeng/inputtext';
 import {Button} from 'primeng/button';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {AuthService} from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ import {Router} from '@angular/router';
 export class LoginComponent {
 
   private readonly router: Router = inject(Router);
+  private readonly authService = inject(AuthService);
 
   submitted: boolean = false;
 
@@ -33,11 +35,18 @@ export class LoginComponent {
     }
   )
 
+  login() {
+    this.authService.login(this.loginForm.value.email!, this.loginForm.value.password!)
+    .then(user => console.log('Usuário logado:', user))
+    .catch(error => console.error('Erro no login:', error));
+  }
+
   redirectToRegister() {
     this.router.navigate(['/register']);
   }
 
   onSubmit() {
     this.submitted = true;
+    this.login();
   }
 }
